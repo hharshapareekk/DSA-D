@@ -32,7 +32,7 @@ using namespace std;
 }*/
 
 // stack using implementation
-//1.ARRAY
+// 1.ARRAY
 /*class Stack
 {
     // properties
@@ -119,20 +119,108 @@ int main()
     st.pop();
 }*/
 
+// 2.Linkedlist (pending)
 
-//2.Linkedlist (pending)
+class Stack
+{
+public:
+    int data;
+    Stack *next;
+    Stack *prev;
+    Stack *top;
+    int size = 5;
+    int val = -1;
 
-class Stack{
-    public:
-        int data;
-        Stack *next;
-        Stack *prev;
-
-    Stack(int d)
+    Stack(int data)
     {
-        this->data=d;
-        this->prev=NULL;
-        this->next=NULL;
+        this->data = data;
+        this->prev = NULL;
+        this->next = NULL;
+    }
+    void push(Stack *&head, int data)
+    {
+        
+
+        if (val < size)
+        {
+            Stack *top = NULL;
+            if (head == NULL)
+            {
+                val += 1;
+                Stack *temp = new Stack(data);
+                head = temp;
+                cout << "Element " << temp->data << " is inserted" << endl;
+            }
+            else
+            {
+                val += 1;
+                Stack *temp = new Stack(data);
+                temp->next = NULL;
+                temp->prev = head->next;
+                head->next = temp;
+                head = temp;
+                top = head;
+                cout << "Element " << head->data << " is inserted" << endl;
+            }
+        }
+        else
+        {
+            cout << "STACK OVERFLOW" << endl;
+        }
     }
 
+    // void pop(Stack* &head ,int data){
+    //     if(val<= -1)
+    //     {
+    //         cout<<"STACK IS EMPTY"<<endl;
+    //     }
+    //     else
+    //     {
+    //         Stack* temp=head;
+    //         temp->prev=
+    
+    //     }
+    // }
+
+    void peek(Stack* &head)
+    {
+        cout<<"Top Of The Stack Is: "<<head->data<<endl;
+    }
+
+    void pop(Stack* &head)
+    {
+        if(head==NULL)
+        {
+            cout<<"STACK UNDERFLOW"<<endl;
+        }
+        else
+        {
+            Stack* temp=head;
+            Stack* prev=NULL;
+            int count= 1;
+            while(count<size)
+            {
+                prev=temp;
+                temp=temp->next;
+                count++;
+            }
+            prev->next=temp->next;
+            temp->next->prev=prev;
+            cout<<head->data<<" is deleted"<<endl;
+            delete temp;
+        }
+    }
 };
+
+int main()
+{
+    Stack st(5);
+    Stack *head = NULL;
+    st.push(head, 25);
+    st.peek(head);
+    st.push(head,30);
+    st.peek(head);
+    st.pop(head);
+    st.peek(head);
+    return 0;
+}
